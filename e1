@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 웹페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>나의 웹페이지에 오신 것을 환영합니다!</h1>
+</header>
+
+<nav>
+    <a href="#about">소개</a>
+    <a href="#services">서비스</a>
+    <a href="#contact">연락처</a>
+</nav>
+
+<section id="about">
+    <h2>소개</h2>
+    <p>엑시콘 현장개선 프로젝트 1조 입니다.</p>
+</section>
+
+<section id="services">
+    <h2>서비스</h2>
+    <p>여기에 제공하는 서비스 내용을 추가하세요.</p>
+</section>
+
+<section id="contact">
+    <h2>연락처</h2>
+    <p>여기에 연락처 정보를 추가하세요.</p>
+</section>
+
+<footer>
+    <p>© 2024 나의 웹페이지. 모든 권리 보유.</p>
+</footer>
+
+</body>
+</html>
