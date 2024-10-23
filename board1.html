@@ -24,6 +24,24 @@
             margin-top: 20px;
             color: #666;
         }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button {
+            background-color: #4CAF50; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            border-radius: 5px; /* 버튼 모서리 둥글게 */
+            transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+        }
+        .button:hover {
+            background-color: #45a049; /* 호버 시 배경색 변화 */
+        }
     </style>
 </head>
 <body>
@@ -36,6 +54,12 @@
     <h2>보드 1 관련 내용</h2>
     <p>여기에 보드 1에 대한 자세한 내용을 추가하세요.</p>
 </section>
+
+<div class="button-container">
+    <a href="board1.html" class="button">보드 1</a>
+    <a href="board2.html" class="button">보드 2</a>
+    <a href="board3.html" class="button">보드 3</a>
+</div>
 
 <a href="index.html">홈으로 돌아가기</a>
 
