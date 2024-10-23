@@ -1,0 +1,89 @@
+html
+코드 복사
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보드 1 - 1조현장개선프로젝트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            background-image: url('boardpic.jfif');
+            background-size: cover;
+            background-position: center;
+            padding: 10px 0;
+            text-align: center;
+            color: #fff;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none; /* 숨김 클래스를 사용하여 요소 숨기기 */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>보드 1</h1>
+</header>
+
+<section>
+    <h2>보드 1 관련 내용</h2>
+    <p>여기에 보드 1에 대한 자세한 내용을 추가하세요.</p>
+</section>
+
+<div class="button-container">
+    <a href="board1.html" class="button">MBT</a>
+    <a href="board2.html" class="button" id="ssd-button">SSD</a>
+    <a href="board3.html" class="button">MEMORY</a>
+</div>
+
+<div class="button-container hidden" id="additional-buttons">
+    <a href="board1.html" class="button">보드 1</a>
+    <a href="board2.html" class="button">보드 2</a>
+    <a href="board3.html" class="button">보드 3</a>
+</div>
+
+<a href="index.html">홈으로 돌아가기</a>
+
+<footer>
+    <p>© 2024 1조. 모든 권리 보유.</p>
+</footer>
+
+<script>
+    document.getElementById('ssd-button').addEventListener('click', function(event) {
+        event.preventDefault(); // 링크 기본 동작 방지
+        document.getElementById('additional-buttons').classList.toggle('hidden'); // 추가 버튼 표시/숨기기
+    });
+</script>
+
+</body>
+</html>
