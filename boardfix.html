@@ -39,6 +39,12 @@
             border-radius: 5px; /* 버튼 모서리 둥글게 */
             transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
         }
+        .button img {
+            width: 50px; /* 이미지 너비 */
+            height: 50px; /* 이미지 높이 */
+            vertical-align: middle; /* 이미지와 텍스트를 수직 정렬 */
+            margin-right: 10px; /* 이미지와 텍스트 사이 간격 */
+        }
         .button:hover {
             background-color: #45a049; /* 호버 시 배경색 변화 */
         }
@@ -47,7 +53,7 @@
 <body>
 
 <header>
-    <h1>보드 수리 이</h1>
+    <h1>보드 수리 이력</h1>
 </header>
 
 <section>
@@ -55,7 +61,10 @@
 </section>
 
 <div class="button-container">
-    <a href="mbt_button.html" class="button">MBT</a>
+    <!-- MBT 버튼에 이미지 추가 -->
+    <a href="mbt_button.html" class="button">
+        <img src="mbt.png" alt="MBT 이미지">MBT
+    </a>
     <a href="ssd_button.html" class="button">SSD</a>
     <a href="memory_button.html" class="button">MEMORY</a>
 </div>
