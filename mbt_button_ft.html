@@ -23,6 +23,17 @@
             margin-top: 20px;
             color: #666;
         }
+        #data-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .data-row {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -35,11 +46,49 @@
     <h2>해당되는 FT 보드를 선택하시오.</h2>
 </section>
 
+<!-- 데이터가 표시될 영역 -->
+<div id="data-container">
+    <h2>FT 보드 데이터</h2>
+</div>
+
 <a href="index.html">홈으로 돌아가기</a>
 
 <footer>
     <p>© 2024 1조 현장개선 프로젝트</p>
 </footer>
 
+<!-- Supabase 연결 및 데이터 표시 코드 -->
+<script>
+    // Supabase 연결 설정
+    const supabaseUrl = 'https://ckkwrgrziyjuywkhilml.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra3dyZ3J6aXlqdXl3a2hpbG1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4MzAzNjMsImV4cCI6MjA0NTQwNjM2M30.kt6uOi5wNl15bfQNsGcYwsoZ00hCtpdasJjy8VE81hU';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+  
+    // 데이터 가져오기 및 표시 함수
+    async function fetchData() {
+        const { data, error } = await supabase
+            .from('MBT_1')  // 테이블 이름을 MBT_1로 설정
+            .select('*');   // 모든 데이터를 선택
+
+        if (error) {
+            console.error('데이터 가져오는 중 오류 발생:', error);
+            return;
+        }
+
+        // HTML에 데이터 표시
+        const container = document.getElementById('data-container');
+        data.forEach(row => {
+            const rowElement = document.createElement('div');
+            rowElement.classList.add('data-row');
+            rowElement.textContent = JSON.stringify(row);  // 데이터 행을 JSON 형식으로 표시
+            container.appendChild(rowElement);
+        });
+    }
+
+    // 페이지 로드 시 데이터 가져오기
+    window.onload = fetchData;
+</script>
+
 </body>
 </html>
+
