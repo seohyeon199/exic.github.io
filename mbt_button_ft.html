@@ -54,6 +54,7 @@
 </footer>
 
 <script>
+    const { createClient } = supabase;
     const supabaseUrl = 'https://ckkwrgrziyjuywkhilml.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra3dyZ3J6aXlqdXl3a2hpbG1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4MzAzNjMsImV4cCI6MjA0NTQwNjM2M30.kt6uOi5wNl15bfQNsGcYwsoZ00hCtpdasJjy8VE81hU';
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
