@@ -57,7 +57,8 @@
     // Supabase 클라이언트 생성
     const supabaseUrl = 'https://ckkwrgrziyjuywkhilml.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra3dyZ3J6aXlqdXl3a2hpbG1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4MzAzNjMsImV4cCI6MjA0NTQwNjM2M30.kt6uOi5wNl15bfQNsGcYwsoZ00hCtpdasJjy8VE81hU';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const { createClient } = supabase;  // Supabase에서 createClient 가져오기
+    const supabase = createClient(supabaseUrl, supabaseKey);  // Supabase 클라이언트 생성
 
     async function fetchData() {
         const { data, error } = await supabase.from('MBT_1').select('*');
@@ -79,7 +80,7 @@
             // 각 필드에 입력란 추가
             item.innerHTML = `
                 <label>TYPE: <input type="text" class="edit-field" value="${row.TYPE}" data-id="${row.id}" data-field="TYPE"></label>
-                <label>COUNT: <input type="numeric" class="edit-field" value="${row.COUNT}" data-id="${row.id}" data-field="COUNT"></label>
+                <label>COUNT: <input type="number" class="edit-field" value="${row.COUNT}" data-id="${row.id}" data-field="COUNT"></label>
                 <label>LOCATION: <input type="text" class="edit-field" value="${row.LOCATION}" data-id="${row.id}" data-field="LOCATION"></label>
                 <label>MANAGER: <input type="text" class="edit-field" value="${row.MANAGER}" data-id="${row.id}" data-field="MANAGER"></label>
                 <label>DATE: <input type="date" class="edit-field" value="${row.DATE}" data-id="${row.id}" data-field="DATE"></label>
