@@ -13,24 +13,29 @@
             padding: 20px;
         }
         header {
-            background-color: #00CAFF; /* 배경색을 동일한 파란색으로 설정 */
+            background-color: #00CAFF;
             padding: 10px 0;
             text-align: center;
-            color: #fff; /* 글씨 색상을 흰색으로 설정 */
+            color: #fff;
         }
         footer {
             text-align: center;
             margin-top: 20px;
             color: #666;
         }
-        .data-container {
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
             margin: 20px 0;
         }
-        .data-item {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .data-table th {
+            background-color: #87CEEB;
+            color: white;
         }
     </style>
 </head>
@@ -44,7 +49,7 @@
     <h2>해당되는 FT 보드를 선택하시오.</h2>
 </section>
 
-<div class="data-container" id="data-container"></div>
+<div id="data-container"></div>
 
 <a href="index.html">홈으로 돌아가기</a>
 
@@ -56,9 +61,9 @@
 <script>
     // Supabase 연결 설정
     const supabaseUrl = 'https://ckkwrgrziyjuywkhilml.supabase.co'; // Supabase URL 입력
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra3dyZ3J6aXlqdXl3a2hpbG1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4MzAzNjMsImV4cCI6MjA0NTQwNjM2M30.kt6uOi5wNl15bfQNsGcYwsoZ00hCtpdasJjy8VE81hU'; // Supabase API 키 입력
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra3dyZ3J6aXlqdXl3a2hpbG1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4MzAzNjMsImV4cCI6MjA0NTQwNjM2M30.kt6uOi5wNl15bfQNsGcYwsoZ00hCtpdasJjy8VE81hU'; // Supabase API 키 입력 (이 값을 외부 노출 시 주의)
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-    
+
     // Supabase에서 데이터 가져오기
     async function fetchData() {
         const { data, error } = await supabase
@@ -73,17 +78,35 @@
         displayData(data);
     }
 
-    // 데이터를 HTML에 표시하는 함수
+    // 데이터를 표 형식으로 HTML에 표시하는 함수
     function displayData(data) {
         const container = document.getElementById('data-container');
-        container.innerHTML = "<h2>FT 보드 데이터</h2>";
 
-        data.forEach(row => {
-            const item = document.createElement('div');
-            item.classList.add('data-item');
-            item.textContent = JSON.stringify(row); // 각 행을 JSON 문자열로 표시
-            container.appendChild(item);
+        if (!data || data.length === 0) {
+            container.innerHTML = "<p>데이터가 없습니다.</p>";
+            return;
+        }
+
+        let tableHTML = "<table class='data-table'>";
+        tableHTML += "<tr>";
+
+        // 테이블 헤더 생성
+        Object.keys(data[0]).forEach(key => {
+            tableHTML += `<th>${key}</th>`;
         });
+        tableHTML += "</tr>";
+
+        // 테이블 데이터 생성
+        data.forEach(row => {
+            tableHTML += "<tr>";
+            Object.values(row).forEach(value => {
+                tableHTML += `<td>${value !== null ? value : ""}</td>`;
+            });
+            tableHTML += "</tr>";
+        });
+
+        tableHTML += "</table>";
+        container.innerHTML = tableHTML;
     }
 
     // 페이지 로드 시 데이터 가져오기 실행
