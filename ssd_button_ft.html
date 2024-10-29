@@ -12,10 +12,10 @@
             padding: 20px;
         }
         header {
-                background-color: #00CAFF; /* 배경색을 특정 파란색으로 설정 */
-                padding: 10px 0;
-                text-align: center;
-                color: #fff; /* 글씨 색상을 흰색으로 설정 */
+            background-color: #00CAFF;
+            padding: 10px 0;
+            text-align: center;
+            color: #fff;
         }
         footer {
             text-align: center;
@@ -37,8 +37,8 @@
             border-radius: 5px;
             transition: background-color 0.3s;
         }
-    .button:hover {
-            background-color: #000; /* 호버 시 배경색 변화 */
+        .button:hover {
+            background-color: #000;
         }
     </style>
 </head>
@@ -65,5 +65,27 @@
     <p>© 2024 1조 현장개선 프로젝트</p>
 </footer>
 
+<!-- Supabase 클라이언트 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+    // Supabase 초기화 코드
+    const supabaseUrl = 'https://<your-project-ref>.supabase.co';
+    const supabaseKey = 'your-anon-key';
+    const supabase = supabase.createClient(https://supabase.com/dashboard/project/yspskmvieuhqnphrmpox,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzcHNrbXZpZXVocW5waHJtcG94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMDA2OTMsImV4cCI6MjA0NTY3NjY5M30.XdQTk1gWSH0fgEDMTvV9WO83mehxrUXYp4xIaXRnMWA);
 
+    // 예제: Supabase에서 데이터를 가져오는 함수
+    async function fetchData() {
+        const { data, error } = await supabase.from('EXI').select('*');
+        if (error) {
+            console.error("데이터 가져오기 오류:", error);
+        } else {
+            console.log("데이터 가져오기 성공:", data);
+        }
+    }
+
+    // 페이지 로드 시 데이터 가져오기
+    document.addEventListener('DOMContentLoaded', fetchData);
+</script>
+
+</body>
 </html>
