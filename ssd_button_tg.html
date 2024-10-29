@@ -13,7 +13,7 @@
         const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjemNqYXphbGhhb3Rzb2hoeGV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAwOTc1MzksImV4cCI6MjA0NTY3MzUzOX0.FxqdrykXJh5LJ-LNsVJOb50VflprQjv5mljdzL1qExo";  // 여기에 API 키 붙여넣기
         const supabase = createClient(supabaseUrl, supabaseKey);
 
-        // 데이터 불러오기
+         // 데이터 불러오기
         async function loadData() {
             const { data, error } = await supabase.from('inventory').select('*');
             if (error) {
@@ -22,7 +22,7 @@
             }
 
             const tableBody = document.getElementById("inventory-table-body");
-            tableBody.innerHTML = "";
+            tableBody.innerHTML = ""; // 이전 데이터를 지우고 새로 로드
 
             // 데이터를 테이블 행으로 추가
             data.forEach(row => {
