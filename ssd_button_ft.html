@@ -40,6 +40,26 @@
         .button:hover {
             background-color: #000;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .edit-btn {
+            padding: 5px 10px;
+            background-color: #00CAFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -50,16 +70,20 @@
 
 <section>
     <h2>보드 선택</h2>
-    <p>아래 버튼을 클릭하여 보드를 선택하세요.</p>
+    <p>아래 표에서 데이터를 수정하세요.</p>
 </section>
 
-<div class="button-container">
-    <a href="SSD_FT_board1.html" class="button">보드 1</a>
-    <a href="SSD_FT_board2.html" class="button">보드 2</a>
-    <a href="SSD_FT_board3.html" class="button">보드 3</a>
-</div>
-
-<a href="index.html">홈으로 돌아가기</a>
+<!-- 데이터 테이블 -->
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>이름</th>
+            <th>편집</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
 <footer>
     <p>© 2024 1조 현장개선 프로젝트</p>
@@ -73,13 +97,43 @@
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzcHNrbXZpZXVocW5waHJtcG94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMDA2OTMsImV4cCI6MjA0NTY3NjY5M30.XdQTk1gWSH0fgEDMTvV9WO83mehxrUXYp4xIaXRnMWA';
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Supabase에서 데이터 가져오기
+    // 데이터 가져오기 함수
     async function fetchData() {
         const { data, error } = await supabase.from('EXI').select('*');
         if (error) {
             console.error("데이터 가져오기 오류:", error);
+            return;
+        }
+
+        // 테이블에 데이터 표시
+        const dataTable = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        dataTable.innerHTML = ''; // 기존 데이터 초기화
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${row.id}</td>
+                <td><input type="text" value="${row.name}" id="name-${row.id}"></td>
+                <td><button class="edit-btn" onclick="updateData(${row.id})">수정</button></td>
+            `;
+            dataTable.appendChild(tr);
+        });
+    }
+
+    // 데이터 수정 함수
+    async function updateData(id) {
+        const name = document.getElementById(`name-${id}`).value;
+        
+        const { data, error } = await supabase
+            .from('EXI')    // 테이블 이름에 맞게 변경하세요
+            .update({ name: name }) // 수정할 컬럼과 값 설정
+            .eq('id', id);  // 특정 ID에 해당하는 데이터 수정
+
+        if (error) {
+            console.error("데이터 수정 오류:", error);
         } else {
-            console.log("데이터 가져오기 성공:", data);
+            console.log("데이터 수정 성공:", data);
+            alert("데이터가 성공적으로 수정되었습니다.");
+            fetchData();  // 데이터 새로고침
         }
     }
 
