@@ -7,7 +7,10 @@
     <script type="module">
         // Supabase 라이브러리 불러오기
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
+        export const corsHeaders = {
+          'Access-Control-Allow-Origin': '*',
+  '        Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+        }
         // Supabase 설정
         const supabaseUrl = "https://fczcjazalhaotsohhxez.supabase.co";  // 여기서 Supabase 프로젝트 URL을 붙여넣기
         const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjemNqYXphbGhhb3Rzb2hoeGV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAwOTc1MzksImV4cCI6MjA0NTY3MzUzOX0.FxqdrykXJh5LJ-LNsVJOb50VflprQjv5mljdzL1qExo";  // 여기에 API 키 붙여넣기
