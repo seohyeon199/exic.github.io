@@ -16,6 +16,7 @@
          // 데이터 불러오기
         async function loadData() {
             const { data, error } = await supabase.from('inventory').select('*');
+            console.log(data);
             if (error) {
                 console.error("데이터 불러오기 오류:", error);
                 return;
