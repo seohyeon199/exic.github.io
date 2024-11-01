@@ -1,7 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest/dist/umd/supabase.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FT 페이지 - 1조현장개선프로젝트</title>
@@ -54,64 +54,48 @@
 </footer>
 
 <script>
-    // Supabase 클라이언트 생성
-    const supabaseUrl = 'https://ckkwrgrziyjuywkhilml.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra3dyZ3J6aXlqdXl3a2hpbG1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4MzAzNjMsImV4cCI6MjA0NTQwNjM2M30.kt6uOi5wNl15bfQNsGcYwsoZ00hCtpdasJjy8VE81hU'; // 실제 키로 교체하세요
-
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const spreadsheetId = 'YOUR_SHEET_ID'; // Google Sheets ID로 변경하세요
+    const apiKey = 'YOUR_API_KEY'; // Google API 키로 변경하세요
+    const range = 'Sheet1!A1:G10'; // 필요한 데이터 범위를 지정하세요
 
     async function fetchData() {
-        const { data, error } = await supabase.from('MBT_1').select('*');
-        if (error) {
-            console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
-            return;
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+        const response = await fetch(url);
+        const result = await response.json();
+
+        if (result.values) {
+            displayData(result.values);
+        } else {
+            console.error('데이터를 가져오는 중 오류가 발생했습니다.');
         }
-        displayData(data);
     }
 
     function displayData(data) {
         const container = document.getElementById('data-container');
         container.innerHTML = "<h2>FT 보드 데이터</h2>";
 
-        data.forEach(row => {
+        data.forEach((row, index) => {
+            if (index === 0) return; // 헤더 행 무시
             const item = document.createElement('div');
             item.classList.add('data-item');
 
             item.innerHTML = `
-                <label>TYPE: <input type="text" class="edit-field" value="${row.TYPE}" data-id="${row.id}" data-field="TYPE"></label>
-                <label>COUNT: <input type="number" class="edit-field" value="${row.COUNT}" data-id="${row.id}" data-field="COUNT"></label>
-                <label>LOCATION: <input type="text" class="edit-field" value="${row.LOCATION}" data-id="${row.id}" data-field="LOCATION"></label>
-                <label>MANAGER: <input type="text" class="edit-field" value="${row.MANAGER}" data-id="${row.id}" data-field="MANAGER"></label>
-                <label>DATE: <input type="date" class="edit-field" value="${row.DATE}" data-id="${row.id}" data-field="DATE"></label>
-                <label>NAME: <input type="text" class="edit-field" value="${row.NAME}" data-id="${row.id}" data-field="NAME"></label>
-                <label>HANDLER: <input type="text" class="edit-field" value="${row.HANDLER}" data-id="${row.id}" data-field="HANDLER"></label>
-                <button onclick="saveData(${row.id})">저장</button>
+                <label>TYPE: <input type="text" class="edit-field" value="${row[0] || ''}" data-row="${index}" data-field="TYPE"></label>
+                <label>COUNT: <input type="number" class="edit-field" value="${row[1] || ''}" data-row="${index}" data-field="COUNT"></label>
+                <label>LOCATION: <input type="text" class="edit-field" value="${row[2] || ''}" data-row="${index}" data-field="LOCATION"></label>
+                <label>MANAGER: <input type="text" class="edit-field" value="${row[3] || ''}" data-row="${index}" data-field="MANAGER"></label>
+                <label>DATE: <input type="date" class="edit-field" value="${row[4] || ''}" data-row="${index}" data-field="DATE"></label>
+                <label>NAME: <input type="text" class="edit-field" value="${row[5] || ''}" data-row="${index}" data-field="NAME"></label>
+                <label>HANDLER: <input type="text" class="edit-field" value="${row[6] || ''}" data-row="${index}" data-field="HANDLER"></label>
+                <button onclick="saveData(${index})">저장</button>
             `;
             container.appendChild(item);
         });
     }
 
-    async function saveData(id) {
-        const fields = document.querySelectorAll(`.edit-field[data-id="${id}"]`);
-        const updatedData = {};
-
-        fields.forEach(field => {
-            const fieldName = field.getAttribute('data-field');
-            updatedData[fieldName] = field.value;
-        });
-
-        const { data, error } = await supabase
-            .from('MBT_1')
-            .update(updatedData)
-            .eq('id', id);
-
-        if (error) {
-            console.error('데이터 업데이트 중 오류가 발생했습니다:', error);
-            alert('데이터 업데이트에 실패했습니다.');
-        } else {
-            alert('데이터가 성공적으로 업데이트되었습니다.');
-            fetchData(); // 데이터 새로고침
-        }
+    async function saveData(row) {
+        // Google Sheets는 API를 통한 직접 수정 기능이 제한적이므로, 이 부분은 Google Apps Script를 통해 백엔드 수정 또는 양식 제출 방식을 활용해야 합니다.
+        alert('수정 기능을 구현하려면 Google Apps Script를 사용하세요.');
     }
 
     window.onload = fetchData;
