@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -57,6 +56,7 @@
     const spreadsheetId = '15ONVJOlNWmwr_URAfPxRXuXyKZLdmG_4qx7uAKJiztw'; // Google Sheets ID로 변경하세요
     const apiKey = 'AIzaSyASpdM5EePBVrtujATCiubD74KAEAiXzSo'; // Google API 키로 변경하세요
     const range = 'MBT_1!A1:G8'; // 필요한 데이터 범위를 지정하세요
+    const scriptUrl = 'https://script.google.com/u/0/home/projects/13PtPbFY8qn5A6OM7ytG4DpVOuj0Itap510YYHNnICJU_VtBfKHF3YaYV/edit'; // Google Apps Script의 웹 앱 URL
 
     async function fetchData() {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
@@ -94,8 +94,25 @@
     }
 
     async function saveData(row) {
-        // Google Sheets는 API를 통한 직접 수정 기능이 제한적이므로, 이 부분은 Google Apps Script를 통해 백엔드 수정 또는 양식 제출 방식을 활용해야 합니다.
-        alert('수정 기능을 구현하려면 Google Apps Script를 사용하세요.');
+        const fields = document.querySelectorAll(`.edit-field[data-row="${row}"]`);
+        const updatedData = Array.from(fields).map(field => field.value);
+
+        try {
+            const response = await fetch(scriptUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ row, data: updatedData }),
+            });
+            const result = await response.text();
+            if (result === "Success") {
+                alert('데이터가 성공적으로 업데이트되었습니다.');
+                fetchData(); // 데이터 새로고침
+            } else {
+                alert('데이터 업데이트에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('데이터 업데이트 중 오류가 발생했습니다:', error);
+        }
     }
 
     window.onload = fetchData;
