@@ -56,7 +56,7 @@
     const spreadsheetId = '15ONVJOlNWmwr_URAfPxRXuXyKZLdmG_4qx7uAKJiztw'; // Google Sheets ID로 변경하세요
     const apiKey = 'AIzaSyASpdM5EePBVrtujATCiubD74KAEAiXzSo'; // Google API 키로 변경하세요
     const range = 'MBT_1!A1:G8'; // 필요한 데이터 범위를 지정하세요
-    const scriptUrl = 'https://script.google.com/u/0/home/projects/13PtPbFY8qn5A6OM7ytG4DpVOuj0Itap510YYHNnICJU_VtBfKHF3YaYV/edit'; // Google Apps Script의 웹 앱 URL
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbxqcOYt61VPGNA-BcE4sKUogk-QDFuKspqhXMTSf1lUyyrVCqPlVhe_dHfG73E5wqM/exec'; // Google Apps Script의 웹 앱 URL
 
     async function fetchData() {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
