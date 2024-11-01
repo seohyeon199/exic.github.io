@@ -56,10 +56,10 @@
 <script type="module">
     // Supabase 클라이언트 생성
     const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest/dist/umd/supabase.js');
-    
+
     const supabaseUrl = 'https://ckkwrgrziyjuywkhilml.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra3dyZ3J6aXlqdXl3a2hpbG1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4MzAzNjMsImV4cCI6MjA0NTQwNjM2M30.kt6uOi5wNl15bfQNsGcYwsoZ00hCtpdasJjy8VE81hU'; // 여기에 실제 Supabase 키를 입력하세요.
-    
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra3dyZ3J6aXlqdXl3a2hpbG1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4MzAzNjMsImV4cCI6MjA0NTQwNjM2M30.kt6uOi5wNl15bfQNsGcYwsoZ00hCtpdasJjy8VE81hU';
+
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     async function fetchData() {
@@ -79,7 +79,6 @@
             const item = document.createElement('div');
             item.classList.add('data-item');
 
-            // 각 필드에 입력란 추가
             item.innerHTML = `
                 <label>TYPE: <input type="text" class="edit-field" value="${row.TYPE}" data-id="${row.id}" data-field="TYPE"></label>
                 <label>COUNT: <input type="numeric" class="edit-field" value="${row.COUNT}" data-id="${row.id}" data-field="COUNT"></label>
@@ -117,6 +116,5 @@
 
     window.onload = fetchData;
 </script>
-
 </body>
 </html>
