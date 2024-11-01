@@ -107,14 +107,14 @@
 
         if (error) {
             console.error('데이터 업데이트 중 오류가 발생했습니다:', error);
+            alert('데이터 업데이트에 실패했습니다.');
         } else {
             alert('데이터가 성공적으로 업데이트되었습니다.');
+            fetchData(); // 데이터 새로고침
         }
     }
 
-    window.onload = () => {
-        fetchData();
-    };
+    window.onload = fetchData;
 </script>
 
 </body>
